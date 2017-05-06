@@ -115,6 +115,7 @@ switch (ENVIRONMENT)
  * NO TRAILING SLASH!
  */
 	$application_folder = '8c7dfdce-bc8e-4f6b-a171-f9985c05a018';
+	$application_root = $application_folder;
 
 /*
  *---------------------------------------------------------------
@@ -304,6 +305,11 @@ switch (ENVIRONMENT)
 	}
 
 	define('VIEWPATH', $view_folder.DIRECTORY_SEPARATOR);
+
+// define assets relative path
+$assets_folder = '27e93e32-9c96-4b50-a29a-53148f805197';
+define('ASSETSPATH', str_replace($application_root, $assets_folder, APPPATH));
+
 
 /*
  * --------------------------------------------------------------------

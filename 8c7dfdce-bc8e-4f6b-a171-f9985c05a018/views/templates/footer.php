@@ -1,8 +1,7 @@
-</div>
         <!-- END Main Content -->
-<footer>
-    <p>2015 &copy; F3holding Admin Template.</p>
-</footer>
+        <footer>
+            <p><?php echo date('Y')?> &copy; True Car.</p>
+        </footer>
 
 <!-- hidden field data to get in login.js page -->
 <input type="hidden" id="base_url" value="<?= base_url() ?>">
@@ -36,6 +35,12 @@ var base_url = '<?= base_url() ?>';
 <script src="<?php echo JSPATH; ?>jquery.flot.tooltip.min.js"></script>
 <script src="<?php echo JSPATH; ?>jquery.sparkline.min.js"></script>
 
+<!-- bootstrap datepicker js -->
+<script src="<?php echo JSPATH; ?>bootstrap-datepicker.js"></script>
+
+<!-- bootstrap datatable js -->
+<!--<script src="--><?php //echo JSPATH; ?><!--dataTables.bootstrap.js"></script>-->
+
 <!--flaty scripts-->
 <script src="<?php echo JSPATH; ?>flaty.js"></script>
 <script src="<?php echo JSPATH; ?>flaty-demo-codes.js"></script>
@@ -43,5 +48,24 @@ var base_url = '<?= base_url() ?>';
 <!-- include common js file in every page -->
 <script src="<?php echo JSPATH; ?>site/common.js"></script>
 
+<!-- include page wise js file -->
+<?php
+    if (file_exists(ASSETSPATH.'js/site/'.$this->router->fetch_class().'.js')) {
+?>
+        <script src="<?= JSPATH.'site/'.$this->router->fetch_class().'.js?ver='.JSVERSION ?>"></script>
+<?php
+    }
+?>
+
+<!-- include google address api js for add and edit route -->
+<?php
+    if ($this->router->fetch_method() == 'add' || $this->router->fetch_method() == 'edit') {
+        ?>
+        <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbFseu7QLWH1pi8jSrFycARmQnKY57HpY&libraries=places&callback=initAutocomplete"
+            async defer></script>
+        <?php
+    }
+?>
 </body>
 </html>

@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://bindasstech.com/truecarapps/';
+$config['base_url'] = 'http://localhost/truecarapps/';
 
 /*
 |--------------------------------------------------------------------------

@@ -49,9 +49,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'login';
-$route[DRIVER_ROOT.'dashboard']='distributor/dashboard';
-$route[DRIVER_ROOT.'dashboard/(:any)/(:any)/']='distributor/dashboard/$1/$2';
+$route['default_controller'] = 'home';
+$route['home/registration'] = 'home/registration';
+$route['home/contuctus']='home/contuctus';
+$route['login'] = 'login';
+$route[DRIVER_ROOT.'dashboard']='driver/dashboard';
+$route[DRIVER_ROOT.'dashboard/(:any)/(:any)/']='driver/dashboard/$1/$2';
+//driver profile 
+$route[DRIVER_ROOT.'profile']='driver/profile';
+$route[DRIVER_ROOT.'profile/(:any)/(:any)/']='driver/profile/$1/$2';
+//driver account 
+$route[DRIVER_ROOT.'account']='driver/account';
+$route[DRIVER_ROOT.'account/(:any)/(:any)/']='driver/account/$1/$2';
+//driver route 
+$route[DRIVER_ROOT.'route']='driver/route';
+$route[DRIVER_ROOT.'route/(:any)']='driver/route/$1';
 
+
+$route[ADMIN_ROOT]='admin/dashboard';
+$route[ADMIN_ROOT.'dashboard']='admin/dashboard';
+$route[ADMIN_ROOT.'dashboard/(:any)/(:any)/']='admin/dashboard/$1/$2';
+$route[ADMIN_ROOT.'profile']='admin/profile';
+$route[ADMIN_ROOT.'account']='admin/account';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

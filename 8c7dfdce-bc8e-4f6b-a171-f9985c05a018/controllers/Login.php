@@ -183,7 +183,7 @@ class Login extends My_Controller{
                 $this->body_data['data_resource']=$this->login_model->data_resource?$this->login_model->data_resource->row():FALSE;
                 
                 //check the user status
-                if($this->body_data['data_resource']->user_status==1)
+                if($this->body_data['data_resource']->user_status=='1' || $this->body_data['data_resource']->user_status=='2')
                 {
                     if($this->body_data['data_resource']->reset_password=='Y')
                     {
@@ -198,7 +198,7 @@ class Login extends My_Controller{
                             {
                                 // set session data to use after otp enter 
                                 $this->setSessionData();    
-                                $responsedata=['responsecode'=>200,'responsemessage'=>'success','responsedata'=>['UUID'=>$this->body_data['data_resource']->user_uuid,'redirecturl'=>($this->session->userdata('REDIRECT_URL').'/dashboard') ]];
+                                $responsedata=['responsecode'=>200,'responsemessage'=>'success','responsedata'=>['UUID'=>$this->body_data['data_resource']->user_uuid,'redirecturl'=>($this->session->userdata('REDIRECT_URL').'dashboard') ]];
                             }else{
                                 //technical error
                                 $responsedata=['responsecode'=>'200TECHER','responsemessage'=>'Technical error occurs','responsedata'=>[]];
@@ -214,11 +214,13 @@ class Login extends My_Controller{
                 {
                     //Inactive status
                     $responsedata=['responsecode'=>2000,'responsemessage'=>'Your account has been inactive','responsedata'=>[]];
-                }else if($this->body_data['data_resource']->user_status==2)
-                {
-                    //temporary block
-                    $responsedata=['responsecode'=>2002,'responsemessage'=>'Your account has been temprary block','responsedata'=>[]];
-                }else if($this->body_data['data_resource']->user_status==3)
+                }
+//                else if($this->body_data['data_resource']->user_status==2)
+//                {
+//                    //temporary block
+//                    $responsedata=['responsecode'=>2002,'responsemessage'=>'Your account has been temprary block','responsedata'=>[]];
+//                }
+                else if($this->body_data['data_resource']->user_status==3)
                 {
                     //deleted user
                     $responsedata=['responsecode'=>2003,'responsemessage'=>'Your account has been delete','responsedata'=>[]];
@@ -243,6 +245,7 @@ class Login extends My_Controller{
         $this->session->set_userdata('DISPLAY_NAME', $this->body_data['data_resource']->display_name);
         $this->session->set_userdata('USER_TYPE_ID', $this->body_data['data_resource']->id);
         $this->session->set_userdata('USER_TYPE_NAME', $this->body_data['data_resource']->user_type);
+        $this->session->set_userdata('USER_STATUS', $this->body_data['data_resource']->user_status);
         $this->session->set_userdata('EMAIL_ID', $this->body_data['data_resource']->email_id);
         $this->session->set_userdata('USER_CODE', $this->body_data['data_resource']->user_code);
         $this->session->set_userdata('SHORT_CODE', $this->body_data['data_resource']->short_code);
@@ -256,6 +259,7 @@ class Login extends My_Controller{
         $this->session->set_userdata('COUNTRY', $this->body_data['data_resource']->country);
         $this->session->set_userdata('PINCODE', $this->body_data['data_resource']->pincode);
         $this->session->set_userdata('CONTACT_NO', $this->body_data['data_resource']->contact_no);
+        $this->session->set_userdata('LOGINFROM', date('h:i A'));
         
     }
     /**
@@ -314,7 +318,7 @@ class Login extends My_Controller{
      */
     public function _truecarLoginLogout() {
         $this->session->sess_destroy();
-        echo 'success';
+        redirect('login','location');
     }
     /*
      *Generate otp for login 
@@ -373,5 +377,9 @@ class Login extends My_Controller{
         }  finally {
         return $status;    
         }
+    }
+    public function _truecarLoginforgotpassword()
+    {
+        echo 'development under process';
     }
 }

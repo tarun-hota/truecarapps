@@ -87,11 +87,15 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 //directory roots
 
 define('ROOT_FOLDER', '/');
-define('URL', 'http://bindasstech.com/truecarapps'.ROOT_FOLDER);
+define('URL', 'http://localhost/truecarapps'.ROOT_FOLDER);
 define('CSSPATH',URL.'27e93e32-9c96-4b50-a29a-53148f805197/css/');
 define('JSPATH',URL.'27e93e32-9c96-4b50-a29a-53148f805197/js/');
 define('IMAGEPATH',URL.'27e93e32-9c96-4b50-a29a-53148f805197/images/');
 define('DRIVER_ROOT', '5c71dfce-fe8e-4f6a-a171-f1985c05a018/');
+define('ADMIN_ROOT', '75985c0f-fe8e-3a8d-a570-a0185c71dfce/');
+define('FORNTCSS',URL.'70f53e32-9c96-4b50-a48a-53148f805196/css/');
+define('FORNTJS',URL.'70f53e32-9c96-4b50-a48a-53148f805196/js/');
+define('FORNTIMAGES',URL.'70f53e32-9c96-4b50-a48a-53148f805196/images/');
 define('JSVERSION', '3');
 
 //database table name
@@ -101,4 +105,6 @@ define('ACTIONLOG',PREFIX.'action_log');
 define('USERTYPE',PREFIX.'user_type');
 define('USER',PREFIX.'users');
 define('USERDETAILS',PREFIX.'user_details');
-define('DELARDETAILS',PREFIX.'dealar_details');
+define('DRIVERROUTE',PREFIX.'driver_routes');
+define('DRIVERSTRUCKINFO',PREFIX.'truckinfo');
+define('SITEDETAILS',PREFIX.'sitesetting');

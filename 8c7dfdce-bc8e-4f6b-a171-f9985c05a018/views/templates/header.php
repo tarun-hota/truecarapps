@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>F3holdinds</title>
+    <title><?php echo $title?></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -19,7 +19,13 @@
     <link rel="stylesheet" href="<?php echo CSSPATH; ?>flaty.css">
     <link rel="stylesheet" href="<?php echo CSSPATH; ?>flaty-responsive.css">
 
-    <link rel="shortcut icon" href="images/favicon.png">
+    <!-- datepicker css -->
+    <link rel="stylesheet" href="<?php echo CSSPATH; ?>datepicker.css">
+
+    <!-- datatable css -->
+<!--    <link rel="stylesheet" href="--><?php //echo CSSPATH;?><!--dataTables.bootstrap.css">-->
+
+    <link rel="shortcut icon" href="<?php echo IMAGEPATH; ?>favicon.png">
 </head>
 <body>
 
@@ -29,9 +35,9 @@
         <span class="fa fa-bars"></span>
     </button>
     <a class="navbar-brand" href="#">
-        <img src="<?php echo IMAGEPATH; ?>logo1.png" alt="logo" />
+        <img src="<?php echo IMAGEPATH; ?>logo12.png" alt="logo" width="65%" />
     </a>
-    <div class="dashboard-txt"><div class="dashboard-txt1"><?php echo $session_data['DISPLAY_NAME']; ?></div>
+    <div class="dashboard-txt"><div class="dashboard-txt1"><?php echo $this->session->userdata('DISPLAY_NAME'); ?></div>
         <!-- BEGIN Navbar Buttons -->
         <ul class="nav flaty-nav pull-right">
             <li>
@@ -41,7 +47,7 @@
                 <a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
                     <img class="nav-user-photo" src="<?php echo IMAGEPATH; ?>avatar1.jpg" alt="Penny's Photo" />
                     <span class="hhh" id="user_info">
-                        <?php echo $session_data['FIRST_NAME'] . ' ' . $session_data['LAST_NAME'];  ?>
+                        <?php echo $this->session->userdata('FIRST_NAME') . ' ' . $this->session->userdata('LAST_NAME');  ?>
                     </span>
                     <i class="fa fa-caret-down"></i>
                 </a>
@@ -50,39 +56,26 @@
                 <ul class="dropdown-menu dropdown-navbar" id="user_menu">
                     <li class="nav-header">
                         <i class="fa fa-clock-o"></i>
-                        Logined From 20:45
+                        Logined From <?php echo $this->session->userdata('LOGINFROM');?>
                     </li>
 
                     <li>
-                        <a href="#">
+                        <a href="<?php echo base_url().$this->session->userdata('REDIRECT_URL')?>account">
                             <i class="fa fa-cog"></i>
                             Account Settings
                         </a>
                     </li>
 
                     <li>
-                        <a href="#">
+                        <a href="<?php echo base_url().$this->session->userdata('REDIRECT_URL')?>profile">
                             <i class="fa fa-user"></i>
                             Edit Profile
                         </a>
                     </li>
 
-                    <li>
-                        <a href="#">
-                            <i class="fa fa-question"></i>
-                            Help
-                        </a>
-                    </li>
-
                     <li class="divider visible-xs"></li>
 
-                    <li class="visible-xs">
-                        <a href="#">
-                            <i class="fa fa-tasks"></i>
-                            Tasks
-                            <span class="badge badge-warning">4</span>
-                        </a>
-                    </li>
+<!--                    
                     <li class="visible-xs">
                         <a href="#">
                             <i class="fa fa-bell"></i>
@@ -96,12 +89,12 @@
                             Messages
                             <span class="badge badge-success">5</span>
                         </a>
-                    </li>
+                    </li>-->
 
                     <li class="divider"></li>
 
                     <li>
-                        <a id="logout" href="#">
+                        <a id="" href="<?php echo base_url()?>login/logout">
                             <i class="fa fa-off"></i>
                             Logout
                         </a>
@@ -116,3 +109,4 @@
 <!-- END Navbar -->
 <!-- BEGIN Container -->
 <div class="container" id="main-container">
+     
