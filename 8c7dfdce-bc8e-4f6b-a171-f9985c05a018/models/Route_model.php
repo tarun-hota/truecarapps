@@ -67,6 +67,31 @@ class Route_model extends My_Model{
 
         return FALSE;
     }
+
+    /**
+     * Delete a route
+     *
+     * @return boolean
+     */
+    public function deleteRoute() {
+        $this->db->where('driver_routesid', $this->input->post('routes_id'));
+        $this->db->or_where('sourcedrop_parent_id', $this->input->post('routes_id'));
+        $this->db->delete(DRIVERROUTE);
+        return $this->db->affected_rows();
+    }
+
+    /**
+     * Change route status to enable or disable
+     *
+     * @return boolean
+     */
+    public function changeRouteStaus() {
+        $status = $this->input->post('status') == 1 ? '0' : '1';
+        $this->db->where('driver_routesid', $this->input->post('routes_id'));
+        $this->db->or_where('sourcedrop_parent_id', $this->input->post('routes_id'));
+        $this->db->update(DRIVERROUTE, array('sourcedrop_status' => $status));
+        return $this->db->affected_rows();
+    }
 }
 
 ?>

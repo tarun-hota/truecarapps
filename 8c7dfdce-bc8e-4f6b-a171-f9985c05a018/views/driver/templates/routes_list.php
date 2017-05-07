@@ -57,6 +57,11 @@
 <!--                    </div>-->
 <!--                </div>
                 <br/>--><br/>
+
+                <!-- hidden field data to get in login.js page -->
+                <input type="hidden" id="base_url" name="base_url" value="<?= base_url() ?>"/>
+                <input type="hidden" id="csrf" name="<?php echo $this->security->get_csrf_token_name()?>" value="<?php echo $this->security->get_csrf_hash() ?>" data-csrftokenname="<?php echo $this->security->get_csrf_token_name()?>" data-csrftokenhash="<?php echo $this->security->get_csrf_hash() ?>"/>
+
                 <div class="clearfix"></div>
                 <div class="table-responsive" style="border:0">
                     <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -78,10 +83,12 @@
                                             <td class="text-center"><?= $row['date_of_journey'] ?></td>
                                             <td class="text-center"><?= $row['source_point'] ?></td>
                                             <td class="text-center"><?= $row['drop_points'] ?></td>
-                                            <td class="text-center"><?php echo $row['drop_points'] == 1 ? '<i class="fa fa-check"></i>' : '<i class="fa fa-exclamation-triangle"></i>'; ?></td>
+                                            <td class="text-center"><a status="<?= $row['status'] ?>" routes_id="<?= $row['id'] ?>" title="Change status" href="javascript:void (0)" class="change_status"> <?php echo $row['status'] == 1 ? '<i style="color: #179456;" class="fa fa-check"></i>' : '<i style="color: #ab3c3c;" class="fa fa-exclamation-triangle"></i>'; ?></a></td>
                                             <td class="text-center1">
-                                                <i class="fa fa-pencil-square-o"></i>
-                                                <i class="fa fa-trash-o"></i>
+                                                <?php if ($row['edit_delete_status'] == 1) { ?>
+                                                    <i class="fa fa-pencil-square-o"></i>
+                                                    <a routes_id="<?= $row['id'] ?>" title="Delete route" class="delete_route" href="javascript:void(0)" style="color: red;"><i class="fa fa-trash-o"></i></a>
+                                                <?php } ?>
                                             </td>
                                         </tr>
                                         <?php
@@ -100,3 +107,28 @@
         </div>
     </div>
 <!-- END Main Content -->
+
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title modal_title">Do you want to delete this route?</h4>
+                </div>
+                <div class="modal-body" style="padding: 0 0 0 0 !important;">
+<!--                    <p>Some text in the modal.</p>-->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary delete_route_ok">Ok</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+
+        </div>
+    </div>

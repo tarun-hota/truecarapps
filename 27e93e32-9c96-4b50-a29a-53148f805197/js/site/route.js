@@ -208,4 +208,64 @@ $(document).ready(function() {
     if ($('#example') !== null) {
         //$('#example').DataTable();
     }
+
+    // Delete route
+    var deleted_row = '',
+        routes_id;
+    $(document).on('click', '.delete_route', function() {
+        deleted_row = $(this).closest('tr');
+        routes_id = $(this).attr('routes_id');
+        $('#myModal').modal('show');
+    });
+    $(document).on('click', '.delete_route_ok', function() {
+
+        $('#myModal').modal('hide');
+
+        // declare variables
+        var csrftokenname = $('#csrf').attr('data-csrftokenname'),
+            csrftokenhash = $('#csrf').attr('data-csrftokenhash'),
+            request_data = {};
+
+        // ajax to delete route
+        request_data[csrftokenname] = csrftokenhash;
+        request_data['routes_id'] = routes_id;
+        request_data['param'] = 'delete_route';
+        $.ajax({type: 'POST', data: request_data})
+            .done(function(response){
+                if (response == 'success') {
+                    deleted_row.find('td').css('background-color', '#967d7d');
+                    deleted_row.fadeIn(1000).delay(1000).fadeOut('slow', function(){
+                        $(this).remove();
+                    });
+                }
+            });
+    });
+
+    // Change route status
+    $(document).on('click', '.change_status', function() {
+        // declare variables
+        var csrftokenname = $('#csrf').attr('data-csrftokenname'),
+            csrftokenhash = $('#csrf').attr('data-csrftokenhash'),
+            request_data = {},
+            _this = $(this);
+
+        // ajax to change route status
+        request_data[csrftokenname] = csrftokenhash;
+        request_data['routes_id'] = _this.attr('routes_id');
+        request_data['status'] = _this.attr('status');
+        request_data['param'] = 'change_status';
+        $.ajax({type: 'POST', data: request_data})
+            .done(function(response){
+                if (response == 'success') {
+                    var a_selector = _this.closest('td').find('a');
+                    if (_this.attr('status') == 1) {
+                        a_selector.find('i').removeClass('fa-check').addClass('fa-exclamation-triangle').css('color', '#ab3c3c');
+                        a_selector.attr('status', 0);
+                    } else {
+                        a_selector.find('i').removeClass('fa-exclamation-triangle').addClass('fa-check').css('color', '#179456');
+                        a_selector.attr('status', 1);
+                    }
+                }
+            });
+    });
 });
